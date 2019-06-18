@@ -21,58 +21,80 @@ https://www.sparkfun.com/datasheets/LCD/HD44780.pdf
 ## Contenido del repositorio
 
 1. Codigo fuente del driver desarrollado y su header
+
 > mylcd.c
 > mylcd.h
+
 2. Codigo fuente de la aplicacion de usuario
+
 > lcdExample.c
+
 3. Device tree "custom" para el driver
+
 > am335x-customboneblack.dts
+
 4. Makefile para compilar el driver
+
 > Makefile
-5. Se obtiene el archivo zimage
+
+5. Se obtiene el archivo *zimage*
 
 ## Instrucciones
 
 ##### Compilacion del kernel
 
 1. En linux-kernel-labs/src/linux:
+
 > export ARCH=arm
 > export CROSS_COMPILE=arm-linux-gnueabi-
 > make -j4 o -j8 dependiendo de la cantidad de hilos del procesador
 
 ##### Compilacion del device tree "custom"
 
-1. Copiar el archivo am335x-customboneblack.dts en linux-kernel-labs/src/linux/arch/arm/boot/dts mediante
-> sudo cp am335x-customboneblack.dtb /var/lib/tftpboot
-2. En linux-kernel-labs/src/linux:
+1. Copiar el archivo *am335x-customboneblack.dts* en *linux-kernel-labs/src/linux/arch/arm/boot/dts* 
+
+2. En *linux-kernel-labs/src/linux*
+
 > make dtbs
-3. Se obtiene el archivo am335x-customboneblack.dtb
+
+3. Se obtiene el archivo *am335x-customboneblack.dtb*
 
 
 ##### Cargar el device tree y el zimage a la BBB
 
-1. En /var/lib/tftpboot/ copiar los archivos am335x-customboneblack.dtb y zimage.
+1. En */var/lib/tftpboot* copiar los archivos *am335x-customboneblack.dtb* y *zimage*
 2. Conectar la BBB y abrir una sesion de una terminal
 3. Configurar el ethernet de tu computadora desde una terminal en linux:
+
 > sudo ifconfig enp2s0f5 192.168.0.1/24
+
 4. Ejecutar los siguientes comandos, modificando las ip segun conveniencia:
+
 > setenv ipaddr 192.168.0.100
 > setenv serverip 192.168.0.1
 > setenv bootargs root=/dev/nfs rw ip=192.168.0.100:::::eth0 console=ttyO0,115200n8 g_ether.dev_addr=f8:dc:7a:00:00:02 g_ether.host_addr=80:ee:73:4b:e3:ec nfsroot=192.168.0.1:/home/matias/linux-kernel-labs/modules/nfsroot,nfsvers=3
 > tftp 0x81000000 zImage
 > tftp 0x82000000 am335x-customboneblack.dtb
 > bootz 0x81000000 - 0x82000000
+
 5. Iniciar sesion con el usuario root
 
 ##### Instalar el modulo y probarlo con la app de usuario
 1. Ejecutar en la BBB
+
 > cd mylcd
 > insmod mylcd.ko
+
 2. Compilar en una terminal de linux la app de usuario
+
 > arm-linux-gnueabi-gcc -o lcdExample lcdExample.c
+
 3. Ejecutar en la BBB	
+
 > ./lcdExample
+
 4. Al finalizar ejecutar en la BBB
+
 > rmmod mylcd.ko
 
 ## App de Usuario
