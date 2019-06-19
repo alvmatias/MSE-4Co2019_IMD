@@ -95,8 +95,8 @@ int main()
         switch(ch)
         {
             case '1':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+
+                buffer[0] = 'a';
                 if(0 > ioctl(fd, LCD_IOCTL_SETCHAR, buffer))
                 {
                     perror("Failed to ioctl\n");
@@ -115,10 +115,9 @@ int main()
                 }
             break;
             case '3':
-		scanf("%d", &ch);
-                buffer[0] = ch;
-		scanf("%d", &ch);
-                buffer[1] = ch;
+                buffer[0] = 2;
+		
+                buffer[1] = 2;
                 if(0 > ioctl(fd, LCD_IOCTL_SETPOSITION, buffer))
                 {
                     perror("Failed to ioctl\n");
@@ -139,8 +138,7 @@ int main()
             break;
 
             case '5':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+                buffer[0] = '1';
 
                 if(0 > ioctl(fd, LCD_IOCTL_RESET, buffer))
                 {
@@ -150,8 +148,7 @@ int main()
             break;
 
             case '6':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+                buffer[0] = '1';
                 if(0 > ioctl(fd, LCD_IOCTL_CLEAR, buffer))
                 {
                     perror("Failed to ioctl\n");
@@ -160,8 +157,7 @@ int main()
             break;
 
             case '7':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+                buffer[0] = '1';
                 if(0 > ioctl(fd, LCD_IOCTL_HOME, buffer))
                 {
                     perror("Failed to ioctl\n");
@@ -170,8 +166,7 @@ int main()
             break;
 
             case '8':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+                buffer[0] = '0';
                 if(0 > ioctl(fd, LCD_IOCTL_SETBACKLIGHT, buffer))
                 {
                     perror("Failed to ioctl\n");
@@ -213,8 +208,7 @@ int main()
             break;
 
             case 'C':
-		scanf("%c", &ch);
-                buffer[0] = ch;
+                buffer[0] = '1';
                 if(0 > ioctl(fd, LCD_IOCTL_SETBLINK, buffer))
                 {
                     perror("Failed to ioctl\n");
